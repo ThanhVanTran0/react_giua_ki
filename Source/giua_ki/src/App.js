@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+
+import {Col} from 'react-bootstrap'
+
 class App extends Component {
   render() {
     return (
-      <div>
-       asdasd
-      </div>
+      <Col xs={12} md={10} mdPush={1} style={{background: 'red'}}/>
     );
   }
 }
