@@ -15,7 +15,9 @@ export const logout =() =>({
 
 export const firebaseLogin = () => {
     return (dispath) => {
-        return firebase.auth().signInWithPopup(googleAuthProvider);
+        return firebase.auth().signInWithPopup(googleAuthProvider).then(response => {
+            console.log(response)
+        });
     }
 };
 

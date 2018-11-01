@@ -14,6 +14,11 @@ class SignIn extends React.Component {
     btnLogInClick() {
         this.props.login();
     }
+    componentWillUpdate(nextProps) {
+        if(nextProps.uid) {
+            this.context.history.push("/chat");
+        }
+    }
 
     render() {
         return (

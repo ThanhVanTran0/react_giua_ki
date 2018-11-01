@@ -1,8 +1,20 @@
 import React from 'react';
 
 import { Navbar, NavItem, Nav, } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { firebaseLogout } from '../Actions';
 
-export default class NavBar extends React.Component {
+class NavBar extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.logoutClick = this.logoutClick.bind(this);
+    }
+
+    logoutClick() {
+        this.props.logout();
+    }
+
     render() {
         return (
             <Navbar inverse collapseOnSelect>
@@ -11,10 +23,16 @@ export default class NavBar extends React.Component {
                         Message App FireBase
                     </Navbar.Text>
                     <Nav pullRight>
-                        <NavItem pullRight>Logout</NavItem>
+                        <NavItem pullRight onClick = {() => this.logoutClick()}>Logout</NavItem>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
         );
     }
 }
+
+
+const mapDispatchToProps = (dispatch) => ({
+    logout: () => dispatch(firebaseLogout())
+});
+export default connect(null,mapDispatchToProps)(NavBar);

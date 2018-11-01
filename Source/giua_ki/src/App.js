@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 
-import {Col} from 'react-bootstrap'
-
 import {BrowserRouter as Router, Route, } from 'react-router-dom';
 
 import NavBar from './Components/NavBar'
 import SignIn from './Components/SignIn'
+import Chat from './Components/Chat'
 
 class App extends Component {
   render() {
@@ -15,6 +14,7 @@ class App extends Component {
           <div>
             <Route path='*' component={NavBar}/>
             <Route exact path="/" component={SignIn}/>
+            <Route exact path="/chat" component={Chat}/>
           </div>
         </Router>
       </div>
