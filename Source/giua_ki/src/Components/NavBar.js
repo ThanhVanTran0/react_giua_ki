@@ -23,7 +23,7 @@ class NavBar extends React.Component {
                         Message App FireBase
                     </Navbar.Text>
                     <Nav pullRight>
-                        <NavItem pullRight onClick = {() => this.logoutClick()}>Logout</NavItem>
+                        <NavItem pullRight onClick = {this.logoutClick}>Logout</NavItem>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

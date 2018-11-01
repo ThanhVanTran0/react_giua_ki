@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 
-import {BrowserRouter as Router, Route, } from 'react-router-dom';
+import {BrowserRouter as Router, Switch } from 'react-router-dom';
+import PublicRoute from './Components/Routers/PublicRoute'
+import PrivateRoute from './Components/Routers/PrivateRoute'
 
-import NavBar from './Components/NavBar'
-import SignIn from './Components/SignIn'
+import SignIn from './Components/SignIn/SignIn'
 import Chat from './Components/Chat'
 
 class App extends Component {
@@ -11,11 +12,10 @@ class App extends Component {
     return (
       <div>
         <Router>
-          <div>
-            <Route path='*' component={NavBar}/>
-            <Route exact path="/" component={SignIn}/>
-            <Route exact path="/chat" component={Chat}/>
-          </div>
+          <Switch>
+            <PublicRoute exact={true} path="/" component={SignIn}/>
+            <PrivateRoute exact={true} path="/chat" component={Chat}/>
+          </Switch>
         </Router>
       </div>
     );

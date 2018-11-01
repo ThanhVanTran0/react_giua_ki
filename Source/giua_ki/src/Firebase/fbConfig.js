@@ -3,14 +3,13 @@
   
   // Initialize Firebase
   var config = {
-    apiKey: "AIzaSyCJtjbPbX3_mqYzXG9zELCt5JJKt3yYbx0",
-    authDomain: "hocfirebase-7db4a.firebaseapp.com",
-    databaseURL: "https://hocfirebase-7db4a.firebaseio.com",
-    projectId: "hocfirebase-7db4a",
-    storageBucket: "hocfirebase-7db4a.appspot.com",
-    messagingSenderId: "327207271884"
+    apiKey: "AIzaSyC3GF8UBKfUlPfd2qdiFyYh4_pM_AK9ZLY",
+    authDomain: "giuaki-1855a.firebaseapp.com",
+    databaseURL: "https://giuaki-1855a.firebaseio.com",
+    projectId: "giuaki-1855a",
+    storageBucket: "giuaki-1855a.appspot.com",
+    messagingSenderId: "985538339278"
   };
-
   firebase.initializeApp(config);
 
   const database = firebase.database();

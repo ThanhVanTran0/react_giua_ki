@@ -1,19 +1,24 @@
-import {LOG_IN, LOG_OUT} from '../Actions'
+import {SET_AUTH, LOG_OUT} from '../Actions'
 
 
 const initState = {
-    uid: null,
+    user: null,
+    token: null
 }
 
 export default function authReducer(state = initState,action) {
     switch(action.type) {
-        case LOG_IN:
+        case SET_AUTH:
             return Object.assign({},state,{
-                
+                user: action.user,
+                token: action.token,
             });
             break;
         case LOG_OUT:
-            return {};
+            return Object.assign({},state,{
+                user: null,
+                token: null,
+            });;
             break;
         default:
             return state;

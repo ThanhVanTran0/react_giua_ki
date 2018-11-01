@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {Button} from 'react-bootstrap';
-import { firebaseLogin } from '../Actions';
+import { firebaseLogin} from '../../Actions';
 import { connect } from 'react-redux';
 
 class SignIn extends React.Component {
@@ -14,24 +14,20 @@ class SignIn extends React.Component {
     btnLogInClick() {
         this.props.login();
     }
-    componentWillUpdate(nextProps) {
-        if(nextProps.uid) {
-            this.context.history.push("/chat");
-        }
-    }
 
     render() {
         return (
             <div>
                 Sign In page
-                <Button bsStyle='primary' onClick={() => this.btnLogInClick()}>Sign in with google</Button>
+                <Button bsStyle='primary' onClick={this.btnLogInClick}>Sign in with google</Button>
             </div>
             )
     };
 }
 
-const mapDispatchToProps = (dispatch) => ({
-    login: () => dispatch(firebaseLogin())
-});
+const mapDispatchToProps = (dispatch) => {
+    return {
+        login: () => dispatch(firebaseLogin()),
+}};
  
 export default connect(undefined, mapDispatchToProps)(SignIn);

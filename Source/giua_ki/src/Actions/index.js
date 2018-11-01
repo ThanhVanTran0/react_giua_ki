@@ -1,28 +1,27 @@
-import {firebase, googleAuthProvider} from '../Firebase/fbConfig'
+import { firebase, googleAuthProvider } from '../Firebase/fbConfig'
 
 
-export const LOG_IN = "LOG_IN"
+export const SET_AUTH = "SET_AUTH"
 export const LOG_OUT = "LOG_OUT"
 
-export const login =(uid) => ({
-    type: LOG_IN,
-    uid
+export const setAuth = (user, token) => ({
+    type: SET_AUTH,
+    user,
+    token
 });
 
-export const logout =() =>({
+export const logout = () => ({
     type: LOG_OUT
 });
 
 export const firebaseLogin = () => {
-    return (dispath) => {
-        return firebase.auth().signInWithPopup(googleAuthProvider).then(response => {
-            console.log(response)
-        });
+    return (dispatch) => {
+        return firebase.auth().signInWithPopup(googleAuthProvider).then(res => dispatch(setAuth(res.user,res.credential.token)));
     }
 };
 
 export const firebaseLogout = () => {
-    return (dispath) => {
-        return firebase.auth().signOut();
+    return (dispatch) => {
+        return firebase.auth().signOut().then(res => dispatch(logout()));
     }
 };

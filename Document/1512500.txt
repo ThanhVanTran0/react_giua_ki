@@ -1,0 +1,6 @@
+﻿Những phần đã làm tuần này:
+	- Tạo 2 component chat và login
+	- Cho phép login firebase với tài khoản google
+	- Xác thực khi router, khi chưa login sẽ không try cập được page chat
+	- Logout
+	- Giao diện xấu, chưa làm giao diện.
