@@ -18,7 +18,7 @@ class SignIn extends React.Component {
 
     render() {
         return (
-            <div className={"container"}>
+            <div className={"background"}>
                 <div className='centerdiv'>
                 <div className={"title"}>
                     <h2>Message App</h2>

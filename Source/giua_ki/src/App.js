@@ -5,7 +5,7 @@ import PublicRoute from './Components/Routers/PublicRoute'
 import PrivateRoute from './Components/Routers/PrivateRoute'
 
 import SignIn from './Components/SignIn/SignIn'
-import Chat from './Components/Chat'
+import Chat from './Components/Chat/Chat'
 
 class App extends Component {
   render() {
@@ -13,7 +13,7 @@ class App extends Component {
       <div>
         <Router>
           <Switch>
-            <PublicRoute exact={true} path="/" component={SignIn}/>
+            <PublicRoute exact={true} path="/" component={Chat}/>
             <PrivateRoute exact={true} path="/chat" component={Chat}/>
           </Switch>
         </Router>
