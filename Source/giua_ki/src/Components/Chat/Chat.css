@@ -76,7 +76,15 @@
 .people-info .status .circle-online {
     width: 10px;
     height: 10px;
-    background: red;
+    background: green;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.people-info .status .circle-offline {
+    width: 10px;
+    height: 10px;
+    background: orange;
     border-radius: 50%;
     position: absolute;
 }

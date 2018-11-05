@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Navbar, NavItem, Nav, } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { firebaseLogout } from '../Actions';
+import {withFirebase} from 'react-redux-firebase'
 
 class NavBar extends React.Component {
 
@@ -12,7 +12,7 @@ class NavBar extends React.Component {
     }
 
     logoutClick() {
-        this.props.logout();
+        this.props.firebase.logout();
     }
 
     render() {
@@ -32,7 +32,5 @@ class NavBar extends React.Component {
 }
 
 
-const mapDispatchToProps = (dispatch) => ({
-    logout: () => dispatch(firebaseLogout())
-});
-export default connect(null,mapDispatchToProps)(NavBar);
+
+export default withFirebase(NavBar);

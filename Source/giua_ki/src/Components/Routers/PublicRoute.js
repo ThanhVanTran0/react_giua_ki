@@ -1,27 +1,26 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import {isEmpty, isLoaded} from 'react-redux-firebase'
 
 const PublicRoute = ({
-    isAuthenticated,
+    auth,
     component: Component,
     ...otherProps
 }) => (
-        <Route {...otherProps} component={(props) => {
-            if (isAuthenticated != null) {
-                return (
-                    <Redirect to='/chat' />
-                );
-            } else {
-                return (
-                    <Component {...props} />
-                );
+        <Route {...otherProps} render={(props) => {
+            if(isLoaded(auth)){
+                if(isEmpty(auth))  return <Component {...props} />
+                else
+                    return <Redirect to="/chat"/>
             }
+            else return null;
+          
         }} />
     );
 
 const mapStateToProps = (state) => ({
-    isAuthenticated: state.authReducer.user
+    auth: state.firebase.auth,
 });
 
 export default connect(mapStateToProps)(PublicRoute);

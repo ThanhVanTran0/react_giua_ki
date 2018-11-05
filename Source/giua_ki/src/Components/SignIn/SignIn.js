@@ -1,9 +1,7 @@
 import React from 'react';
 
-import { Button } from 'react-bootstrap';
-import { firebaseLogin } from '../../Actions';
-import { connect } from 'react-redux';
 import "./SignIn.css"
+import {withFirebase} from 'react-redux-firebase'
 
 class SignIn extends React.Component {
 
@@ -13,7 +11,7 @@ class SignIn extends React.Component {
     }
 
     btnLogInClick() {
-        this.props.login();
+        this.props.firebase.login({provider: 'google', type: 'popup'}).then(res => this.props.history.push('/chat'))
     }
 
     render() {
@@ -34,11 +32,4 @@ class SignIn extends React.Component {
     };
 }
 
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        login: () => dispatch(firebaseLogin()),
-    }
-};
-
-export default connect(undefined, mapDispatchToProps)(SignIn);
+export default withFirebase(SignIn);
