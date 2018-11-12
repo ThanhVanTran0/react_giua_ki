@@ -86,6 +86,10 @@ class Chat extends React.Component {
                 <NavBar />
                 <div class="row">
                     <div className="column-left" style={{ backgroundColor: '#c5ddeb' }}>
+                        <div className="search">
+                            <input type='text' className="search-input"/>
+                            <button className="button-find">Find</button>
+                        </div>
                         <div className="people-list">
                             {list.map(item => {
                                 if (item.uid != this.props.me) {
