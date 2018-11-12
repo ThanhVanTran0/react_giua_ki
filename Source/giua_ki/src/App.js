@@ -10,8 +10,6 @@ import Chat from './Components/Chat/Chat'
 import handleUserState from './Modules/handleUserState'
 
 class App extends Component {
-
-
   componentDidMount() {
     handleUserState();
   }

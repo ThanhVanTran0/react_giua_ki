@@ -19,7 +19,6 @@ class Item extends Component {
 
     calc = timestamp => {
         let sub = moment() - moment(timestamp);
-        console.log(moment() - moment(timestamp))
         let minus = Math.round(sub / 60000);
         let hour = Math.round(minus / 60);
         if (hour < 1) {

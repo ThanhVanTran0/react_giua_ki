@@ -8,6 +8,7 @@ import moment from 'moment'
 import { compose } from "redux"
 import { connect } from 'react-redux';
 import { firebaseConnect } from 'react-redux-firebase'
+import { iif } from 'rxjs';
 
 function parseJsonToList(jsonString) {
     let list = [];
@@ -16,6 +17,12 @@ function parseJsonToList(jsonString) {
 
     list = Object.keys(jsonString).map(item => jsonString[item]);
     return list;
+}
+
+function findString(string1, string2) {
+    string1 = string1.toLowerCase();
+    string2 = string2.toLowerCase();
+    return string1.includes(string2);
 }
 
 class Chat extends React.Component {
@@ -28,6 +35,7 @@ class Chat extends React.Component {
             message: '',
             listMessage: [],
             photoURL: '',
+            inputFind: ''
         }
         this.btnSendClick = this.btnSendClick.bind(this);
     }
@@ -80,6 +88,9 @@ class Chat extends React.Component {
 
     render() {
         let list = parseJsonToList(this.props.listOnline);
+        if(this.state.inputFind != '') {
+            list = list.filter(item => findString(item.displayName,this.state.inputFind));
+        }
         list = list.sort((a,b) => (a.time < b.time || a.online === false && b.online === true) ? 1 : a.time === b.time ? 0 : -1);
         return (
             <div>
@@ -87,8 +98,7 @@ class Chat extends React.Component {
                 <div class="row">
                     <div className="column-left" style={{ backgroundColor: '#c5ddeb' }}>
                         <div className="search">
-                            <input type='text' className="search-input"/>
-                            <button className="button-find">Find</button>
+                            <input type='text' placeholder="Search..." className="search-input" onChange={(e) => this.setState({ inputFind: e.target.value })}/>
                         </div>
                         <div className="people-list">
                             {list.map(item => {
