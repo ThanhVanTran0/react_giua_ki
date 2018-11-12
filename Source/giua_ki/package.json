@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "firebase": "^5.5.6",
+    "is-image-url": "^1.1.8",
     "moment": "^2.22.2",
     "react": "^16.6.0",
     "react-bootstrap": "^0.32.4",

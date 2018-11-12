@@ -9,6 +9,7 @@ import { compose } from "redux"
 import { connect } from 'react-redux';
 import { firebaseConnect } from 'react-redux-firebase'
 import { iif } from 'rxjs';
+import isImageUrl from "is-image-url"
 
 import Upload from '../Upload/Upload'
 
@@ -211,7 +212,7 @@ class Chat extends React.Component {
                                                             <span className="message-data-name"> {this.props.myName}</span>
                                                         </div>
                                                         <div className="message other-message float-right">
-                                                            {item.content}
+                                                            {isImageUrl(item.content) ? <img src={item.content} width={300} height={300}/>: item.content}
                                                     </div>
                                                     </li>
                                                 );
@@ -225,7 +226,7 @@ class Chat extends React.Component {
                                                             <span className="message-data-time">{moment(item.time).format('DD/MM/YY HH:mm')}</span>
                                                         </div>
                                                         <div className="message my-message">
-                                                        {item.content}
+                                                        {isImageUrl(item.content) ? <img src={item.content} width={300} height={300}/>: item.content}
                                             </div>
                                                     </li>);
                                             }
