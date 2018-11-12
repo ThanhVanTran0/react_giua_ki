@@ -63,6 +63,24 @@ input.search-input {
     border-radius: 10px
 }
 
+.fa-star {
+    float: right;
+    color: #D8DADF;
+    font-size: 20px;
+    margin-top: -45px;
+  }
+
+  .fa-star.true {
+    float: right;
+    color: yellow;
+    font-size: 20px;
+    margin-top: -45px;
+  }
+
+  i.fa.fa-circle.online {
+      font-size: 10px
+  }
+
 
 .people-info:after {
     visibility: hidden;
@@ -82,8 +100,23 @@ input.search-input {
     float: left;
     margin-top: 7px;
     margin-left: 8px;
+    width: 268px;
 }
 
+i.fa.fa-star.itemclass {
+    float: right;
+    color: #D8DADF;
+    font-size: 20px;
+    margin-top: -21px;
+}
+
+
+i.fa.fa-star.itemclass.true {
+    float: right;
+    color: yellow;
+    font-size: 20px;
+    margin-top: -21px;
+}
 .people-info .status {
     color: black;
     margin-top: 5px;

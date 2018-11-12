@@ -59,6 +59,7 @@ class Item extends Component {
                         <p className={item.online ? 'circle-online' : 'circle-offline'} />
                         <p className="state">{item.online ? "online" : this.state.message}</p>
                     </div>
+                    <i className={item.star ? "fa fa-star itemclass true":"fa fa-star itemclass"}></i>
                 </div>
             </div>
         );

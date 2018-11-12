@@ -25,6 +25,27 @@ function findString(string1, string2) {
     return string1.includes(string2);
 }
 
+function compare(a,b) {
+        if(a.online === true && b.online === true && b.star === true && (typeof(a.star) === 'undefined' || a.star === false))
+            return 1;
+        if(a.online === true && b.online === true && a.star === true && (typeof(b.star) === 'undefined' || b.star === false))
+            return -1;
+
+        if(a.online === false && b.online === false && b.star === true && (typeof(a.star) === 'undefined' || a.star === false))
+            return 1;
+        if(a.online === false && b.online === false && a.star === true && (typeof(b.star) === 'undefined' || b.star === false))
+            return -1;
+
+        if(a.online === false && b.online === true)
+            return 1;
+        if(a.online === true && b.online === false)
+            return -1;
+    
+        if(a.time < b.time)
+            return 1;
+    return 0;
+}
+
 class Chat extends React.Component {
 
     constructor(props) {
@@ -35,9 +56,19 @@ class Chat extends React.Component {
             message: '',
             listMessage: [],
             photoURL: '',
-            inputFind: ''
+            inputFind: '',
+            star: false,
+            listStar: [],
         }
         this.btnSendClick = this.btnSendClick.bind(this);
+    }
+
+    componentDidMount() {
+        this.props.firebase.database().ref(`/users/${this.props.me}/star`).on('value',(snapshoot) => {
+            if(snapshoot.val()) {
+                this.setState({ listStar: snapshoot.val() })
+            }
+        })
     }
 
     btnSendClick() {
@@ -60,6 +91,7 @@ class Chat extends React.Component {
             {
                 uidFriend: item.uid, nameFriend: item.displayName,
                 photoURL: item.photoURL,
+                star: false,
             }, () => {
                 //Lay du lieu chat ve
                 let roomid = this.props.me > this.state.uidFriend ? `${this.state.uidFriend}_${this.props.me}` : `${this.props.me}_${this.state.uidFriend}`
@@ -69,9 +101,19 @@ class Chat extends React.Component {
                         this.setState({ listMessage: list })
                     }
                 })
+                this.props.firebase.database().ref(`/users/${this.props.me}/star/${this.state.uidFriend}`).on('value',(snapshoot) => {
+                    if(snapshoot.val()) {
+                        this.setState({star: snapshoot.val()})
+                    }
+                })
             })
+    }
 
-
+    starClick = () => {
+        this.props.firebase.database().ref(`/users/${this.props.me}/star/${this.state.uidFriend}`).set(!this.state.star);
+        this.setState({
+            star: !this.state.star
+        })
     }
 
     scrollToBottom = () => {
@@ -88,10 +130,18 @@ class Chat extends React.Component {
 
     render() {
         let list = parseJsonToList(this.props.listOnline);
-        if(this.state.inputFind != '') {
-            list = list.filter(item => findString(item.displayName,this.state.inputFind));
+        console.log("list dau", list);
+        if(list.length !=0) {
+            list = list.filter(item => item.uid != this.props.me)
+            if(this.state.listStar.length !=0) {
+                list = list.map(item => ({...item,star: this.state.listStar[item.uid]}))
+            }
+            if(this.state.inputFind != '') {
+                list = list.filter(item => findString(item.displayName,this.state.inputFind));
+            }
+            list = list.sort((a,b) => compare(a,b,this.props.me));
+            console.log("list sau" ,list);
         }
-        list = list.sort((a,b) => (a.time < b.time || a.online === false && b.online === true) ? 1 : a.time === b.time ? 0 : -1);
         return (
             <div>
                 <NavBar />
@@ -124,7 +174,7 @@ class Chat extends React.Component {
                                     <div className="chat-width">
                                         Chat with {this.state.nameFriend}
                                     </div>
-                                    {/* <i className="fa fa-star"></i> Nut star */}
+                                    <i className={this.state.star ? "fa fa-star true" : "fa fa-star"} onClick={this.starClick}></i>
                                 </div>
                                 {/* End header */}
                                 <div className="chat-history" ref={e => {this.chatContent = e}}>
