@@ -10,6 +10,8 @@ import { connect } from 'react-redux';
 import { firebaseConnect } from 'react-redux-firebase'
 import { iif } from 'rxjs';
 
+import Upload from '../Upload/Upload'
+
 function parseJsonToList(jsonString) {
     let list = [];
     if (jsonString === null || typeof jsonString === 'undefined')
@@ -59,6 +61,7 @@ class Chat extends React.Component {
             inputFind: '',
             star: false,
             listStar: [],
+            showImageInput: false
         }
         this.btnSendClick = this.btnSendClick.bind(this);
     }
@@ -86,12 +89,24 @@ class Chat extends React.Component {
         }
     }
 
+    sendImageLink = (link) => {
+        let _message = {
+            from: this.props.me,
+            time: this.props.firebase.database.ServerValue.TIMESTAMP,
+            content: link,
+        }
+        let roomid = this.props.me > this.state.uidFriend ? `${this.state.uidFriend}_${this.props.me}` : `${this.props.me}_${this.state.uidFriend}`
+
+        this.props.firebase.push(`message/${roomid}`, _message)
+    }
+
     itemChatWithClick = (item) => {
         this.setState(
             {
                 uidFriend: item.uid, nameFriend: item.displayName,
                 photoURL: item.photoURL,
                 star: false,
+                showImageInput: false,
             }, () => {
                 //Lay du lieu chat ve
                 let roomid = this.props.me > this.state.uidFriend ? `${this.state.uidFriend}_${this.props.me}` : `${this.props.me}_${this.state.uidFriend}`
@@ -126,6 +141,12 @@ class Chat extends React.Component {
 
     componentDidUpdate(){
         this.scrollToBottom()
+    }
+
+    sendImageClick = () => {
+        this.setState({
+            showImageInput: !this.state.showImageInput
+        })
     }
 
     render() {
@@ -215,7 +236,8 @@ class Chat extends React.Component {
                                 {/* End history chat */}
 
                                 <div class="chat-message clearfix">
-                                    <textarea name="message-to-send" id="message-to-send" placeholder="Type your message" rows="3" onChange={(e) => this.setState({ message: e.target.value })} value={this.state.message}></textarea>
+                                    {this.state.showImageInput ? <Upload pushUrlImg={this.sendImageLink} onClose={() => this.setState({showImageInput: false})}/> : <textarea name="message-to-send" id="message-to-send" placeholder="Type your message" rows="3" onChange={(e) => this.setState({ message: e.target.value })} value={this.state.message}></textarea>}
+                                    <i class="fas fa-images" onClick={this.sendImageClick}></i>
                                     <button onClick={this.btnSendClick}>Send</button>
                                 </div>
                                 {/* End form send message */}
