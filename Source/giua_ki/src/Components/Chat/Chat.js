@@ -152,7 +152,6 @@ class Chat extends React.Component {
 
     render() {
         let list = parseJsonToList(this.props.listOnline);
-        console.log("list dau", list);
         if(list.length !=0) {
             list = list.filter(item => item.uid != this.props.me)
             if(this.state.listStar.length !=0) {
@@ -162,7 +161,6 @@ class Chat extends React.Component {
                 list = list.filter(item => findString(item.displayName,this.state.inputFind));
             }
             list = list.sort((a,b) => compare(a,b,this.props.me));
-            console.log("list sau" ,list);
         }
         return (
             <div>

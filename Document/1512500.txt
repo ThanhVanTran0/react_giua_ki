@@ -1,6 +1,0 @@
-﻿Những phần đã làm tuần này (06/11/2018):
-	- Chỉnh sửa lại giao diện
-	- Chuyển qua dùng react-readux-firebase
-	- Hiển thị danh sách những người dùng trong app
-	- Khi click vào một người, hiển thị lịch sử chat, cho phép chat
-	- Chức năng logout chưa sử dụng được, muốn logout thì tắt tab đang mở.
